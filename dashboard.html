@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard | Gestão de Manutenção de Frota</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+
+<body>
+
+    <div class="dashboard-layout">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <div class="sidebar-header">
+
+                <div class="logo-mark">
+                    <img src="../assets/logo.png" alt="Logo FleetControl">
+                </div>
+
+                <div class="logo-info">
+                    <strong>FleetControl</strong>
+                    <span>Gestão de Frota</span>
+                </div>
+
+            </div>
+
+            <nav class="sidebar-nav">
+
+                <div class="nav-section-title">
+                    PRINCIPAL
+                </div>
+
+                <a href="dashboard.html"
+                   class="nav-item active">
+
+                    <span class="nav-icon">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                            <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                            <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                            <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                        </svg>
+                    </span>
+
+                    <span>Dashboard</span>
+
+                </a>
+
+                <a href="frota.html"
+                   id="cardFrota"
+                   class="nav-item">
+
+                    <span class="nav-icon">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M5 17h14"></path>
+                            <path d="M6 17V9l2-4h8l2 4v8"></path>
+                            <path d="M4 9h16"></path>
+                            <circle cx="7" cy="17" r="1.5"></circle>
+                            <circle cx="17" cy="17" r="1.5"></circle>
+                        </svg>
+                    </span>
+
+                    <span>Frota</span>
+
+                </a>
+
+                <a href="manutencoes.html"
+                   id="cardManutencoes"
+                   class="nav-item">
+
+                    <span class="nav-icon">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M14.5 6.5a4 4 0 0 0-5.2 5.2L4 17l3 3 5.3-5.3a4 4 0 0 0 5.2-5.2l-2.2 2.2-2.5-2.5z"></path>
+                        </svg>
+                    </span>
+
+                    <span>Manutenções</span>
+
+                </a>
+
+                <a href="preventivas.html"
+                   id="cardPreventivas"
+                   class="nav-item">
+
+                    <span class="nav-icon">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <circle cx="12" cy="12" r="8"></circle>
+                            <path d="M12 7v5l3 2"></path>
+                        </svg>
+                    </span>
+
+                    <span>Preventivas</span>
+
+                </a>
+
+                <div class="nav-section-title nav-section-secondary">
+                    ADMINISTRAÇÃO
+                </div>
+
+                <a href="usuarios.html"
+                   id="cardUsuarios"
+                   class="nav-item">
+
+                    <span class="nav-icon">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <circle cx="9" cy="8" r="3"></circle>
+                            <path d="M3 19c.5-3.2 2.5-5 6-5s5.5 1.8 6 5"></path>
+                            <path d="M16 5.5a3 3 0 0 1 0 5.8"></path>
+                            <path d="M18 14c1.8.5 2.8 2.1 3 4"></path>
+                        </svg>
+                    </span>
+
+                    <span>Usuários</span>
+
+                </a>
+
+                <a href="configuracoes.html"
+                   id="cardConfiguracoes"
+                   class="nav-item">
+
+                    <span class="nav-icon">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-1.8 1.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5v.1h-2.6v-.1a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1-1.8-1.8.1-.1A1.7 1.7 0 0 0 8 15a1.7 1.7 0 0 0-1.5-1H6v-2.6h.1a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1L9 6.6l.1.1a1.7 1.7 0 0 0 1.9.3 1.7 1.7 0 0 0 1-1.5v-.1h2.6v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1 1.8 1.8-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.5 1h.1V14h-.1a1.7 1.7 0 0 0-1.5 1z"></path>
+                        </svg>
+                    </span>
+
+                    <span>Configurações</span>
+
+                </a>
+
+            </nav>
+
+            <div class="sidebar-footer">
+
+                <div class="system-status">
+                    <span class="status-dot"></span>
+
+                    <div>
+                        <strong>Sistema ativo</strong>
+                    </div>
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <!-- CONTEÚDO PRINCIPAL -->
+        <main class="dashboard-main">
+
+            <!-- TOPO -->
+            <header class="dashboard-header">
+
+                <div class="header-title">
+
+                    <span class="page-label">
+                        VISÃO GERAL
+                    </span>
+
+                    <h1>Dashboard</h1>
+
+                    <p>
+                        Acompanhe a situação da frota e o planejamento de manutenção.
+                    </p>
+
+                </div>
+
+
+                <div class="header-user">
+
+                    <div class="user-info">
+
+                        <strong id="usuarioNome">
+                            Usuário
+                        </strong>
+
+                        <span id="usuarioPerfil">
+                            Perfil
+                        </span>
+
+                    </div>
+
+                    <div class="user-avatar">
+                        U
+                    </div>
+
+                    <button
+                        type="button"
+                        id="btnLogout"
+                        class="btn-logout"
+                        title="Sair do sistema">
+
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M10 5H5v14h5"></path>
+                            <path d="M14 8l4 4-4 4"></path>
+                            <path d="M9 12h9"></path>
+                        </svg>
+
+                    </button>
+
+                </div>
+
+            </header>
+
+
+            <!-- RESUMO DA FROTA -->
+            <section class="dashboard-section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <span class="section-kicker">
+                            FROTA
+                        </span>
+
+                        <h2>Resumo da frota</h2>
+                    </div>
+
+                    <a href="frota.html" class="section-link">
+                        Ver frota
+                        <span>→</span>
+                    </a>
+
+                </div>
+
+
+                <div class="summary-grid">
+
+                    <article class="summary-card">
+
+                        <div class="summary-icon icon-blue">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M5 17h14"></path>
+                                <path d="M6 17V9l2-4h8l2 4v8"></path>
+                                <path d="M4 9h16"></path>
+                                <circle cx="7" cy="17" r="1.5"></circle>
+                                <circle cx="17" cy="17" r="1.5"></circle>
+                            </svg>
+                        </div>
+
+                        <div class="summary-content">
+
+                            <span>Total de viaturas</span>
+
+                            <strong id="totalViaturas">
+                                0
+                            </strong>
+
+                            <small>
+                                Veículos cadastrados
+                            </small>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="summary-card">
+
+                        <div class="summary-icon icon-green">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <circle cx="12" cy="12" r="8"></circle>
+                                <path d="M8 12l2.5 2.5L16 9"></path>
+                            </svg>
+                        </div>
+
+                        <div class="summary-content">
+
+                            <span>Disponíveis</span>
+
+                            <strong id="totalDisponiveis">
+                                0
+                            </strong>
+
+                            <small>
+                                Prontas para operação
+                            </small>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="summary-card">
+
+                        <div class="summary-icon icon-orange">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path d="M14.5 6.5a4 4 0 0 0-5.2 5.2L4 17l3 3 5.3-5.3a4 4 0 0 0 5.2-5.2l-2.2 2.2-2.5-2.5z"></path>
+                            </svg>
+                        </div>
+
+                        <div class="summary-content">
+
+                            <span>Em manutenção</span>
+
+                            <strong id="totalEmManutencao">
+                                0
+                            </strong>
+
+                            <small>
+                                Atualmente em serviço
+                            </small>
+
+                        </div>
+
+                    </article>
+
+
+                    <article class="summary-card">
+
+                        <div class="summary-icon icon-red">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <circle cx="12" cy="12" r="8"></circle>
+                                <path d="M12 8v5"></path>
+                                <circle cx="12" cy="16.5" r=".7"></circle>
+                            </svg>
+                        </div>
+
+                        <div class="summary-content">
+
+                            <span>Indisponíveis</span>
+
+                            <strong id="totalIndisponiveis">
+                                0
+                            </strong>
+
+                            <small>
+                                Fora de operação
+                            </small>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+
+            <!-- PREVENTIVAS -->
+            <section class="dashboard-section">
+
+                <div class="section-heading">
+
+                    <div>
+                        <span class="section-kicker">
+                            MANUTENÇÃO PREVENTIVA
+                        </span>
+
+                        <h2>Situação das preventivas</h2>
+                    </div>
+
+                    <a href="preventivas.html" class="section-link">
+                        Ver preventivas
+                        <span>→</span>
+                    </a>
+
+                </div>
+
+
+                <div class="preventive-grid">
+
+                    <article class="preventive-card normal">
+
+                        <div class="preventive-top">
+                            <span class="preventive-dot"></span>
+                            <span>Normais</span>
+                        </div>
+
+                        <strong id="totalPreventivasNormais">
+                            0
+                        </strong>
+
+                        <small>
+                            Dentro do planejamento
+                        </small>
+
+                    </article>
+
+
+                    <article class="preventive-card near">
+
+                        <div class="preventive-top">
+                            <span class="preventive-dot"></span>
+                            <span>Próximas</span>
+                        </div>
+
+                        <strong id="totalPreventivasProximas">
+                            0
+                        </strong>
+
+                        <small>
+                            Próximas do vencimento
+                        </small>
+
+                    </article>
+
+                    <article class="preventive-card overdue">
+
+                        <div class="preventive-top">
+                            <span class="preventive-dot"></span>
+                            <span>Atrasadas</span>
+                        </div>
+
+                        <strong id="totalPreventivasAtrasadas">
+                            0
+                        </strong>
+
+                        <small>
+                            Fora do prazo previsto
+                        </small>
+
+                    </article>
+
+
+                    <article class="preventive-card without-plan">
+
+                        <div class="preventive-top">
+                            <span class="preventive-dot"></span>
+                            <span>Sem planejamento</span>
+                        </div>
+
+                        <strong id="totalSemPlanejamento">
+                            0
+                        </strong>
+
+                        <small>
+                            Sem histórico preventivo
+                        </small>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+            <section class="dashboard-bottom">
+
+<!-- GRÁFICOS DA FROTA -->
+<section class="dashboard-section charts-section">
+    <div class="section-heading">
+        <div>
+            <span class="section-kicker">VISÃO GERAL</span>
+            <h2>Gráficos da frota</h2>
+        </div>
+    </div>
+
+    <div class="charts-grid">
+        <article class="dashboard-panel chart-panel">
+            <div class="panel-heading">
+                <div>
+                    <span class="section-kicker">STATUS</span>
+                    <h2>Situação das viaturas</h2>
+                </div>
+            </div>
+
+            <div class="chart-content chart-doughnut-content">
+                <canvas id="graficoStatusFrota"
+                        role="img"
+                        aria-label="Gráfico da situação das viaturas"></canvas>
+                <div id="legendaStatusFrota" class="chart-legend"></div>
+            </div>
+        </article>
+
+        <article class="dashboard-panel chart-panel">
+            <div class="panel-heading">
+                <div>
+                    <span class="section-kicker">MANUTENÇÕES</span>
+                    <h2>Manutenções por viatura</h2>
+                </div>
+            </div>
+
+            <div class="chart-content">
+                <canvas id="graficoManutencoesViatura"
+                        role="img"
+                        aria-label="Gráfico de manutenções por viatura"></canvas>
+            </div>
+        </article>
+    </div>
+</section>
+
+<!-- ALERTAS -->
+<section class="dashboard-bottom alerts-only">
+    <div class="dashboard-panel alerts-panel">
+        <div class="panel-heading">
+            <div>
+                <span class="section-kicker">ATENÇÃO</span>
+                <h2>Alertas da frota</h2>
+            </div>
+        </div>
+
+        <div id="listaAlertas" class="alerts-list">
+            <div class="alert-empty">Carregando alertas...</div>
+        </div>
+    </div>
+</section>
+
+            <!-- RODAPÉ -->
+            <footer class="dashboard-footer">
+
+                <span>
+                    FleetControl — Protótipo acadêmico
+                </span>
+
+                <span>
+                    Gestão de Manutenção de Frota
+                </span>
+
+            </footer>
+
+        </main>
+
+    </div>
+
+
+    <!-- SCRIPTS -->
+    <script src="../js/core/config.js"></script>
+    <script src="../js/core/storage.js"></script>
+    <script src="../js/core/permissions.js"></script>
+    <script src="../js/core/auth.js"></script>
+    <script src="../js/core/configService.js"></script>
+
+    <script src="../data/viaturas.js"></script>
+    <script src="../data/tipos-manutencao.js"></script>
+    <script src="../data/manutencoes.js"></script>
+
+    <script src="../js/services/viaturaService.js"></script>
+    <script src="../js/services/manutencaoService.js"></script>
+    <script src="../js/services/preventivaService.js"></script>
+
+    <script src="../js/dashboard.js"></script>
+
+</body>
+
+</html>

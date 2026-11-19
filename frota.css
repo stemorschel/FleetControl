@@ -1,0 +1,56 @@
+/* =========================================================
+   FROTA / EDIÇÃO DE VIATURA
+   Estrutura compartilhada (cabeçalho, filtros, tabela, botões,
+   estados) vem de style.css.
+   ========================================================= */
+
+#btnVoltar {
+    align-self: flex-start;
+}
+
+.card-formulario {
+    padding: 28px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow-small);
+}
+
+#formEditarViatura {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+#formEditarViatura .campo-filtro {
+    flex: none;
+}
+
+#mensagem {
+    grid-column: 1 / -1;
+    min-height: 20px;
+}
+
+.acoes-formulario {
+    grid-column: 1 / -1;
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-light);
+}
+
+@media (max-width: 700px) {
+
+    #formEditarViatura {
+        grid-template-columns: 1fr;
+    }
+
+    .acoes-formulario {
+        flex-direction: column;
+    }
+
+    .card-formulario {
+        padding: 20px 16px;
+    }
+}

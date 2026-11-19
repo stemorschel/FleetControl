@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Usuários | Gestão de Manutenção de Frota
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/usuarios.css"
+    >
+
+</head>
+
+<script src="../js/sidebar.js"></script>
+
+<body>
+
+    <main class="pagina-usuarios">
+
+        <header class="cabecalho-pagina">
+
+            <div>
+
+                <h1>
+                    Usuários
+                </h1>
+
+                <p>
+                    Gerenciamento dos usuários e perfis de acesso.
+                </p>
+
+            </div>
+
+            <div class="usuario-pagina">
+
+                <strong id="usuarioNome">
+                    —
+                </strong>
+
+                <span id="usuarioPerfil">
+                    —
+                </span>
+
+                <button
+                    id="btnVoltar"
+                    type="button"
+                >
+                    Voltar
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <section class="secao-usuarios">
+
+            <div class="barra-acoes">
+
+                <div>
+
+                    <label for="busca">
+                        Pesquisar usuário
+                    </label>
+
+                    <input
+                        type="search"
+                        id="busca"
+                        placeholder="Nome ou usuário"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <label for="filtroPerfil">
+                        Perfil
+                    </label>
+
+                    <select id="filtroPerfil">
+
+                        <option value="">
+                            Todos
+                        </option>
+
+                        <option value="administrador">
+                            Administrador
+                        </option>
+
+                        <option value="gestor">
+                            Gestor
+                        </option>
+
+                        <option value="tecnico">
+                            Técnico
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div>
+
+                    <label for="filtroStatus">
+                        Situação
+                    </label>
+
+                    <select id="filtroStatus">
+
+                        <option value="">
+                            Todos
+                        </option>
+
+                        <option value="ativo">
+                            Ativos
+                        </option>
+
+                        <option value="inativo">
+                            Inativos
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="secao-usuarios">
+
+            <div class="cabecalho-secao">
+
+                <div>
+
+                    <h2>
+                        Usuários cadastrados
+                    </h2>
+
+                    <p id="contadorUsuarios">
+                        0 usuários
+                    </p>
+
+                </div>
+
+                <button
+                    id="btnNovoUsuario"
+                    type="button"
+                    class="botao-principal"
+                >
+                    Novo usuário
+                </button>
+
+            </div>
+
+
+            <div
+                id="formularioUsuario"
+                class="formulario-usuario"
+                hidden
+            >
+
+                <h3 id="tituloFormulario">
+                    Novo usuário
+                </h3>
+
+
+                <form id="usuarioForm">
+
+                    <input
+                        type="hidden"
+                        id="usuarioId"
+                    >
+
+
+                    <div class="grid-formulario">
+
+                        <div>
+
+                            <label for="nome">
+                                Nome
+                            </label>
+
+                            <input
+                                type="text"
+                                id="nome"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div>
+
+                            <label for="usuario">
+                                Usuário
+                            </label>
+
+                            <input
+                                type="text"
+                                id="usuario"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div>
+
+                            <label for="senha">
+                                Senha
+                            </label>
+
+                            <input
+                                type="password"
+                                id="senha"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div>
+
+                            <label for="perfil">
+                                Perfil
+                            </label>
+
+                            <select
+                                id="perfil"
+                                required
+                            >
+
+                                <option value="administrador">
+                                    Administrador
+                                </option>
+
+                                <option value="gestor">
+                                    Gestor
+                                </option>
+
+                                <option value="tecnico">
+                                    Técnico
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="acoes-formulario">
+
+                        <button
+                            type="submit"
+                            class="botao-principal"
+                        >
+                            Salvar
+                        </button>
+
+                        <button
+                            type="button"
+                            id="btnCancelar"
+                        >
+                            Cancelar
+                        </button>
+
+                    </div>
+
+                    <p
+                        id="mensagemUsuario"
+                        class="mensagem-formulario"
+                    ></p>
+
+                </form>
+
+            </div>
+
+
+            <div class="tabela-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Nome
+                            </th>
+
+                            <th>
+                                Usuário
+                            </th>
+
+                            <th>
+                                Perfil
+                            </th>
+
+                            <th>
+                                Situação
+                            </th>
+
+                            <th>
+                                Ações
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="tabelaUsuarios">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <div
+                id="estadoVazio"
+                class="estado-vazio"
+                hidden
+            >
+                Nenhum usuário encontrado.
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="../js/core/config.js"></script>
+    <script src="../js/core/storage.js"></script>
+    <script src="../js/core/permissions.js"></script>
+    <script src="../js/core/auth.js"></script>
+
+
+    <script src="../js/usuarios.js"></script>
+
+</body>
+
+</html>

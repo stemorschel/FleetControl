@@ -1,0 +1,888 @@
+/* =========================================================
+   FLEETCONTROL — ESTILOS COMPARTILHADOS
+   Camada visual apenas. Nenhum ID/classe usado pelo JS foi
+   renomeado; novas regras só estilizam elementos existentes.
+   ========================================================= */
+
+:root {
+    --primary: #1b5583;
+    --primary-dark: #123e63;
+    --primary-light: #e8f1f8;
+
+    --background: #f2f5f8;
+    --surface: #ffffff;
+    --surface-soft: #f7f9fb;
+
+    --text: #16222e;
+    --text-muted: #5b6b7a;
+
+    --border: #d3dbe3;
+    --border-light: #e5eaef;
+
+    --success: #1d7a3a;
+    --success-background: #e6f4ea;
+
+    --warning: #8a5a00;
+    --warning-background: #fff3d6;
+
+    --danger: #b42318;
+    --danger-background: #fdeceb;
+
+    --info: #1a56b8;
+    --info-background: #e8f0fd;
+
+    --shell: #172b3a;
+
+    --radius-small: 6px;
+    --radius: 10px;
+    --radius-large: 14px;
+
+    --shadow-small: 0 1px 2px rgba(16, 24, 40, 0.06);
+    --shadow: 0 4px 14px rgba(16, 24, 40, 0.08);
+
+    --focus-ring: 0 0 0 3px rgba(27, 85, 131, 0.22);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+html {
+    font-family: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--background);
+    color: var(--text);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+    margin-top: 0;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    color: var(--text);
+}
+
+h2 {
+    font-size: 18px;
+    font-weight: 650;
+    line-height: 1.3;
+    color: var(--text);
+}
+
+h3 {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.4;
+    color: var(--text);
+}
+
+a {
+    color: var(--primary);
+}
+
+a:hover {
+    color: var(--primary-dark);
+}
+
+
+/* =========================================================
+   BARRA SUPERIOR DAS PÁGINAS INTERNAS
+   (decorativa: aparece só nas páginas que usam <main class="pagina...">;
+   não aparece no login nem no dashboard, que têm layout próprio)
+   ========================================================= */
+
+body:has(> main[class^="pagina"])::before {
+    content: "FleetControl";
+    display: block;
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    height: 52px;
+    padding: 0 32px;
+    line-height: 52px;
+    background: var(--shell);
+    border-bottom: 3px solid var(--primary);
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+}
+
+
+/* =========================================================
+   FOCO E FORMULÁRIOS
+   ========================================================= */
+
+button:focus-visible,
+a:focus-visible {
+    outline: 3px solid rgba(27, 85, 131, 0.35);
+    outline-offset: 2px;
+}
+
+input,
+select,
+textarea {
+    width: 100%;
+    min-height: 42px;
+    padding: 9px 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-small);
+    background: var(--surface);
+    color: var(--text);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+    border-color: #b7c3cf;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: var(--primary);
+    box-shadow: var(--focus-ring);
+    outline: none;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #8b99a7;
+}
+
+input:disabled,
+select:disabled,
+textarea:disabled {
+    background: var(--surface-soft);
+    color: var(--text-muted);
+    cursor: not-allowed;
+}
+
+textarea {
+    resize: vertical;
+    line-height: 1.5;
+}
+
+label {
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+small {
+    color: var(--text-muted);
+}
+
+
+/* =========================================================
+   BOTÕES
+   ========================================================= */
+
+button {
+    min-height: 40px;
+    padding: 9px 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-small);
+    background: var(--surface);
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.2;
+    cursor: pointer;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+
+button:hover {
+    background: var(--surface-soft);
+    border-color: #b7c3cf;
+}
+
+button:active {
+    background: var(--border-light);
+}
+
+button:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.btn-principal,
+.botao-principal,
+#btnNovaViatura,
+button[type="submit"] {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #ffffff;
+}
+
+.btn-principal:hover,
+.botao-principal:hover,
+#btnNovaViatura:hover,
+button[type="submit"]:hover {
+    background: var(--primary-dark);
+    border-color: var(--primary-dark);
+    color: #ffffff;
+}
+
+.btn-principal:active,
+.botao-principal:active,
+#btnNovaViatura:active,
+button[type="submit"]:active {
+    background: var(--primary-dark);
+}
+
+.btn-detalhes {
+    display: inline-flex;
+    align-items: center;
+    min-height: 34px;
+    padding: 6px 12px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-small);
+    color: var(--primary);
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1.2;
+    text-decoration: none;
+}
+
+.btn-detalhes:hover {
+    background: var(--primary-light);
+    border-color: var(--primary);
+    color: var(--primary-dark);
+}
+
+
+/* =========================================================
+   ESTRUTURA DAS PÁGINAS INTERNAS
+   ========================================================= */
+
+.pagina,
+.pagina-frota,
+.pagina-manutencoes,
+.pagina-viatura,
+.pagina-usuarios,
+.pagina-teste {
+    width: 100%;
+    margin: 0 auto;
+    padding: 28px 32px 40px;
+}
+
+.pagina-frota {
+    max-width: 1400px;
+}
+
+.pagina-manutencoes,
+.pagina {
+    max-width: 1500px;
+}
+
+.pagina-viatura {
+    max-width: 1100px;
+}
+
+.pagina-usuarios {
+    max-width: 1400px;
+}
+
+.pagina-teste {
+    max-width: 760px;
+}
+
+.cabecalho-pagina {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.cabecalho-pagina h1 {
+    margin: 0 0 4px;
+}
+
+.cabecalho-pagina p {
+    margin: 0;
+    color: var(--text-muted);
+}
+
+#usuarioLogado {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+.usuario-pagina {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.usuario-pagina strong {
+    color: var(--text);
+    font-size: 14px;
+}
+
+.usuario-pagina span {
+    color: var(--text-muted);
+    font-size: 14px;
+    text-transform: capitalize;
+}
+
+.acoes-cabecalho {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cabecalho-secao {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 16px;
+}
+
+.cabecalho-secao h2 {
+    margin: 0 0 4px;
+}
+
+.cabecalho-secao p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   FILTROS
+   ========================================================= */
+
+.filtros-frota,
+.filtros-manutencao,
+.filtros,
+.barra-acoes {
+    display: grid;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding: 16px 18px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow-small);
+}
+
+.filtros-frota {
+    grid-template-columns: 2fr 1fr;
+}
+
+.filtros-manutencao {
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+}
+
+.filtros {
+    grid-template-columns: 2fr 1fr;
+}
+
+.barra-acoes {
+    grid-template-columns: 2fr 1fr 1fr;
+}
+
+.campo-filtro {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+
+.filtros > div,
+.barra-acoes > div,
+.grid-formulario > div {
+    min-width: 0;
+}
+
+.filtros label,
+.barra-acoes label,
+.grid-formulario label {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.campo-filtro label {
+    margin: 0;
+}
+
+
+/* =========================================================
+   TABELAS
+   ========================================================= */
+
+.tabela-container {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow-small);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-variant-numeric: tabular-nums;
+}
+
+table thead {
+    background: var(--surface-soft);
+}
+
+table th {
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 650;
+    white-space: nowrap;
+}
+
+table th,
+table td {
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--border-light);
+    text-align: left;
+    vertical-align: middle;
+}
+
+table td {
+    font-size: 14.5px;
+    white-space: nowrap;
+}
+
+table td:first-child {
+    font-weight: 600;
+}
+
+table tbody tr {
+    background: var(--surface);
+    transition: background-color 0.12s ease;
+}
+
+table tbody tr:hover {
+    background: #f4f8fb;
+}
+
+table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+
+/* =========================================================
+   CARTÕES DE RESUMO (preventivas) E DE FORMULÁRIO
+   ========================================================= */
+
+.cards-resumo {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 16px 18px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow-small);
+}
+
+.card span {
+    color: var(--text-muted);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.card strong {
+    color: var(--text);
+    font-size: 28px;
+    line-height: 1.1;
+    font-weight: 700;
+}
+
+.secao-tabela {
+    margin-bottom: 20px;
+}
+
+.secao-usuarios {
+    margin-bottom: 28px;
+}
+
+
+/* =========================================================
+   FORMULÁRIO SIMPLES (nova viatura)
+   ========================================================= */
+
+.pagina-teste {
+    margin-top: 24px;
+    padding: 28px 32px 32px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow-small);
+}
+
+.pagina-teste h1 {
+    margin-bottom: 22px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.pagina-teste form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+}
+
+.pagina-teste form > div {
+    flex: 1 1 calc(50% - 9px);
+    min-width: 220px;
+}
+
+.pagina-teste label {
+    display: block;
+    margin-bottom: 6px;
+}
+
+.pagina-teste #mensagem {
+    flex: 1 1 100%;
+    min-width: 0;
+    font-weight: 600;
+}
+
+.pagina-teste #mensagem:empty {
+    height: 0;
+    margin: -9px 0;
+}
+
+.pagina-teste form > button {
+    align-self: flex-start;
+}
+
+.pagina-teste button {
+    border: 1px solid var(--border);
+}
+
+.pagina-teste button[type="submit"] {
+    border-color: var(--primary);
+}
+
+
+/* =========================================================
+   MENSAGENS, ESTADOS E STATUS
+   ========================================================= */
+
+.estado-vazio,
+.estado-erro {
+    padding: 36px 24px;
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.estado-vazio h2,
+.estado-erro h2 {
+    margin-top: 0;
+    color: var(--text);
+}
+
+.tabela-container > .estado-vazio {
+    border: 0;
+    border-top: 1px solid var(--border-light);
+    border-radius: 0;
+}
+
+.mensagem-formulario,
+#mensagem {
+    line-height: 1.5;
+    font-weight: 600;
+}
+
+.mensagem-formulario.erro {
+    color: var(--danger);
+}
+
+.mensagem-formulario.sucesso {
+    color: var(--success);
+}
+
+.status,
+.status-manutencao,
+.status-preventiva,
+.status-usuario,
+.status-ativo,
+.status-inativo {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 4px 11px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 650;
+    line-height: 1.4;
+    white-space: nowrap;
+}
+
+.status::before,
+.status-manutencao::before,
+.status-preventiva::before,
+.status-usuario::before,
+.status-ativo::before,
+.status-inativo::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    flex-shrink: 0;
+}
+
+.status-ativo {
+    background: var(--success-background);
+    color: var(--success);
+}
+
+.status-inativo {
+    background: #eef1f4;
+    color: var(--text-muted);
+}
+
+.label {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+@media (max-width: 900px) {
+
+    .cards-resumo {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .filtros-manutencao {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 700px) {
+
+    body:has(> main[class^="pagina"])::before {
+        padding: 0 20px;
+    }
+
+    .pagina,
+    .pagina-frota,
+    .pagina-manutencoes,
+    .pagina-viatura,
+    .pagina-usuarios,
+    .pagina-teste {
+        padding: 20px 16px 32px;
+    }
+
+    .cabecalho-pagina,
+    .cabecalho-secao {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .acoes-cabecalho {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filtros-frota,
+    .filtros-manutencao,
+    .filtros,
+    .barra-acoes {
+        grid-template-columns: 1fr;
+    }
+
+    .cards-resumo {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .pagina-teste {
+        margin-top: 16px;
+        padding: 22px 18px;
+    }
+}
+
+@media (max-width: 450px) {
+
+    .cards-resumo {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+
+    html {
+        font-size: 15px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        transition: none !important;
+    }
+}
+
+/* MENU LATERAL COMPARTILHADO */
+.sidebar-compartilhada {
+    width: 250px;
+    min-width: 250px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    background: #172b3a;
+    color: #fff;
+    box-sizing: border-box;
+}
+
+.sidebar-compartilhada .sidebar-header {
+    min-height: 82px;
+    padding: 0 22px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, .08);
+}
+
+.sidebar-compartilhada .logo-mark img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.sidebar-compartilhada .logo-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.sidebar-compartilhada .logo-info strong {
+    color: #fff;
+    font-size: 15px;
+}
+
+.sidebar-compartilhada .logo-info span {
+    color: #aebbc5;
+    font-size: 12px;
+}
+
+.sidebar-compartilhada .sidebar-nav {
+    flex: 1;
+    padding: 22px 13px;
+    overflow-y: auto;
+}
+
+.sidebar-compartilhada .nav-section-title {
+    margin: 0 0 9px;
+    padding: 0 12px;
+    color: #8495a3;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.sidebar-compartilhada .nav-section-secondary {
+    margin-top: 28px;
+}
+
+.sidebar-compartilhada .nav-item {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    padding: 0 12px;
+    margin-bottom: 4px;
+    border-radius: 7px;
+    color: #bdc9d2;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.sidebar-compartilhada .nav-item:hover {
+    background: rgba(255, 255, 255, .07);
+    color: #fff;
+}
+
+.sidebar-compartilhada .nav-item.active {
+    background: #244e70;
+    color: #fff;
+    box-shadow: inset 3px 0 #6fb0e0;
+}
+
+.sidebar-compartilhada .sidebar-footer {
+    padding: 18px 17px;
+    border-top: 1px solid rgba(255, 255, 255, .08);
+}
+
+.com-sidebar-compartilhada {
+    padding-left: 250px;
+    box-sizing: border-box;
+}
+
+@media (max-width: 700px) {
+    .sidebar-compartilhada {
+        width: 190px;
+        min-width: 190px;
+    }
+
+    .com-sidebar-compartilhada {
+        padding-left: 190px;
+    }
+}

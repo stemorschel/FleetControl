@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Nova Viatura | Gestão de Manutenção de Frota
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+</head>
+
+<script src="../js/sidebar.js"></script>
+
+<body>
+
+    <main class="pagina-teste">
+
+        <h1>
+            Cadastro de Viatura
+        </h1>
+
+        <form id="formViatura">
+
+            <div>
+
+                <label for="identificacao">
+                    Identificação
+                </label>
+
+                <input
+                    type="text"
+                    id="identificacao"
+                    required
+                >
+
+            </div>
+
+
+            <div>
+
+                <label for="placa">
+                    Placa
+                </label>
+
+                <input
+                    type="text"
+                    id="placa"
+                    required
+                >
+
+            </div>
+
+
+            <div>
+
+                <label for="marca">
+                    Marca
+                </label>
+
+                <input
+                    type="text"
+                    id="marca"
+                    required
+                >
+
+            </div>
+
+
+            <div>
+
+                <label for="modelo">
+                    Modelo
+                </label>
+
+                <input
+                    type="text"
+                    id="modelo"
+                    required
+                >
+
+            </div>
+
+
+            <div>
+
+                <label for="ano">
+                    Ano
+                </label>
+
+                <input
+                    type="number"
+                    id="ano"
+                    min="1900"
+                    max="2100"
+                    required
+                >
+
+            </div>
+
+
+            <div>
+
+                <label for="quilometragem">
+                    Quilometragem
+                </label>
+
+                <input
+                    type="number"
+                    id="quilometragem"
+                    min="0"
+                    required
+                >
+
+            </div>
+
+
+            <div>
+
+                <label for="setor">
+                    Setor
+                </label>
+
+                <input
+                    type="text"
+                    id="setor"
+                    required
+                >
+
+            </div>
+
+
+            <div
+                id="mensagem"
+                role="alert"
+            ></div>
+
+
+            <button
+                type="submit"
+            >
+                Cadastrar Viatura
+            </button>
+
+
+            <button
+                type="button"
+                id="btnVoltar"
+            >
+                Voltar
+            </button>
+
+        </form>
+
+    </main>
+
+
+    <script src="../js/core/config.js"></script>
+
+    <script src="../js/core/storage.js"></script>
+
+    <script src="../js/core/permissions.js"></script>
+
+    <script src="../js/core/auth.js"></script>
+
+    <script src="../data/viaturas.js"></script>
+
+    <script src="../js/services/viaturaService.js"></script>
+
+
+    <script>
+
+        if (
+            !Auth.exigirPermissao(
+                "criarViatura"
+            )
+        ) {
+
+            throw new Error(
+                "Acesso não autorizado."
+            );
+
+        }
+
+
+        const formViatura =
+            document.getElementById(
+                "formViatura"
+            );
+
+
+        const mensagem =
+            document.getElementById(
+                "mensagem"
+            );
+
+
+        const botao =
+            formViatura.querySelector(
+                "button[type='submit']"
+            );
+
+
+        formViatura.addEventListener(
+            "submit",
+            async function(event) {
+
+                event.preventDefault();
+
+
+                const dados = {
+
+                    identificacao:
+                        document
+                            .getElementById(
+                                "identificacao"
+                            )
+                            .value
+                            .trim(),
+
+                    placa:
+                        document
+                            .getElementById(
+                                "placa"
+                            )
+                            .value
+                            .trim(),
+
+                    marca:
+                        document
+                            .getElementById(
+                                "marca"
+                            )
+                            .value
+                            .trim(),
+
+                    modelo:
+                        document
+                            .getElementById(
+                                "modelo"
+                            )
+                            .value
+                            .trim(),
+
+                    ano:
+                        Number(
+                            document
+                                .getElementById(
+                                    "ano"
+                                )
+                                .value
+                        ),
+
+                    quilometragem:
+                        Number(
+                            document
+                                .getElementById(
+                                    "quilometragem"
+                                )
+                                .value
+                        ),
+
+                    setor:
+                        document
+                            .getElementById(
+                                "setor"
+                            )
+                            .value
+                            .trim()
+
+                };
+
+
+                if (
+                    !dados.identificacao ||
+                    !dados.placa ||
+                    !dados.marca ||
+                    !dados.modelo ||
+                    !dados.ano ||
+                    !Number.isFinite(
+                        dados.quilometragem
+                    ) ||
+                    dados.quilometragem < 0 ||
+                    !dados.setor
+                ) {
+
+                    mensagem.textContent =
+                        "Preencha corretamente todos os campos obrigatórios.";
+
+                    mensagem.className =
+                        "login-mensagem erro";
+
+                    return;
+
+                }
+
+
+                botao.disabled = true;
+
+                botao.textContent =
+                    "Cadastrando...";
+
+
+                try {
+
+                    const resultado =
+                        await ViaturaService.adicionarNaAPI(
+                            dados
+                        );
+
+
+                    if (
+                        !resultado ||
+                        !resultado.sucesso
+                    ) {
+
+                        mensagem.textContent =
+                            resultado?.mensagem ||
+                            "Não foi possível cadastrar a viatura.";
+
+                        mensagem.className =
+                            "login-mensagem erro";
+
+                        return;
+
+                    }
+
+
+                    mensagem.textContent =
+                        "Viatura cadastrada com sucesso.";
+
+                    mensagem.className =
+                        "login-mensagem sucesso";
+
+
+                    formViatura.reset();
+
+
+                } catch (erro) {
+
+                    console.error(
+                        "Erro ao cadastrar viatura:",
+                        erro
+                    );
+
+
+                    mensagem.textContent =
+                        "Não foi possível conectar ao servidor.";
+
+                    mensagem.className =
+                        "login-mensagem erro";
+
+
+                } finally {
+
+                    botao.disabled = false;
+
+                    botao.textContent =
+                        "Cadastrar Viatura";
+
+                }
+
+            }
+        );
+
+
+        document
+            .getElementById("btnVoltar")
+            .addEventListener(
+                "click",
+                function() {
+
+                    window.location.href =
+                        "frota.html";
+
+                }
+            );
+
+    </script>
+
+</body>
+
+</html>

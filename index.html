@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Login | Gestão de Manutenção de Frota
+    </title>
+
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/login.css"
+    >
+
+</head>
+
+
+<body>
+
+
+    <main class="login-container">
+
+
+        <section class="login-card">
+
+
+            <div class="login-header">
+
+
+                <div class="logo">
+                    <img src="assets/logo.png" alt="Logo FleetControl">
+                </div>
+
+
+                <h1>
+                    Gestão de Manutenção de Frota
+                </h1>
+
+
+                <p>
+                    Acesse o sistema
+                </p>
+
+
+            </div>
+
+
+
+            <form id="loginForm">
+
+
+                <div class="form-group">
+
+
+                    <label for="usuario">
+                        Usuário
+                    </label>
+
+
+                    <input
+                        type="text"
+                        id="usuario"
+                        name="usuario"
+                        placeholder="Digite seu usuário"
+                        autocomplete="username"
+                        required
+                    >
+
+
+                </div>
+
+
+
+                <div class="form-group">
+
+
+                    <label for="senha">
+                        Senha
+                    </label>
+
+
+                    <input
+                        type="password"
+                        id="senha"
+                        name="senha"
+                        placeholder="Digite sua senha"
+                        autocomplete="current-password"
+                        required
+                    >
+
+
+                </div>
+
+
+
+                <div
+                    id="loginMensagem"
+                    class="login-mensagem"
+                    role="alert"
+                ></div>
+
+
+
+                <button
+                    type="submit"
+                    class="btn-login"
+                >
+                    Entrar
+                </button>
+
+
+            </form>
+
+
+
+            <div class="login-demo">
+
+                <p>
+                    Protótipo acadêmico com dados fictícios.
+                </p>
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <script src="js/core/config.js"></script>
+
+    <script src="js/core/storage.js"></script>
+
+
+    <script src="js/core/permissions.js"></script>
+
+    <script src="js/core/auth.js"></script>
+
+    <script src="js/app.js"></script>
+
+
+</body>
+
+</html>

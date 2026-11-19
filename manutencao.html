@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>Detalhes da Manutenção</title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css">
+
+    <link
+        rel="stylesheet"
+        href="../css/manutencao.css">
+
+</head>
+
+<script src="../js/sidebar.js"></script>
+
+<body>
+
+    <main class="pagina-manutencoes">
+
+        <header class="cabecalho-pagina">
+
+            <div>
+
+                <h1>
+                    Detalhes da Manutenção
+                </h1>
+
+                <p id="usuarioLogado"></p>
+
+            </div>
+
+
+            <div class="acoes-cabecalho">
+
+                <button
+                    type="button"
+                    id="btnVoltar">
+
+                    Voltar
+
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <section
+            id="estadoErro"
+            class="estado-vazio"
+            style="display:none;">
+
+            <h2>
+                Manutenção não encontrada
+            </h2>
+
+            <p>
+                A manutenção solicitada não existe
+                ou não está mais disponível.
+            </p>
+
+            <button
+                type="button"
+                id="btnVoltarErro">
+
+                Voltar para Manutenções
+
+            </button>
+
+        </section>
+
+
+        <section
+            id="conteudoManutencao"
+            style="display:none;">
+
+            <div class="card-formulario">
+
+                <div class="identificacao-manutencao">
+
+                    <div>
+
+                        <span class="label">
+                            Identificação
+                        </span>
+
+                        <h2 id="manutencaoId">
+                            —
+                        </h2>
+
+                    </div>
+
+
+                    <div>
+
+                        <span
+                            id="statusManutencao"
+                            class="status-manutencao">
+
+                            —
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="dados-manutencao">
+
+                    <div class="dado">
+
+                        <span class="label">
+                            Viatura
+                        </span>
+
+                        <strong id="viatura">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="dado">
+
+                        <span class="label">
+                            Placa
+                        </span>
+
+                        <strong id="placa">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="dado">
+
+                        <span class="label">
+                            Tipo
+                        </span>
+
+                        <strong id="tipo">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="dado">
+
+                        <span class="label">
+                            Natureza
+                        </span>
+
+                        <strong id="natureza">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="dado">
+
+                        <span class="label">
+                            Data agendada
+                        </span>
+
+                        <strong id="dataAgendada">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="dado">
+
+                        <span class="label">
+                            Data de conclusão
+                        </span>
+
+                        <strong id="dataConclusao">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="dado">
+
+                        <span class="label">
+                            Quilometragem
+                        </span>
+
+                        <strong id="quilometragem">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="dado">
+
+                        <span class="label">
+                            Responsável
+                        </span>
+
+                        <strong id="responsavel">
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="detalhes-texto">
+
+                    <div>
+
+                        <span class="label">
+                            Serviço realizado / planejado
+                        </span>
+
+                        <p id="servico">
+                            —
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        <span class="label">
+                            Problema identificado
+                        </span>
+
+                        <p id="problema">
+                            —
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        <span class="label">
+                            Peças utilizadas
+                        </span>
+
+                        <p id="pecas">
+                            —
+                        </p>
+
+                    </div>
+
+
+                    <div>
+
+                        <span class="label">
+                            Observações
+                        </span>
+
+                        <p id="observacoes">
+                            —
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    class="acoes-formulario"
+                    id="acoesManutencao">
+
+                    <button
+                        type="button"
+                        id="btnIniciar"
+                        class="btn-principal"
+                        style="display:none;">
+
+                        Iniciar Manutenção
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        id="btnConcluir"
+                        class="btn-principal"
+                        style="display:none;">
+
+                        Concluir Manutenção
+
+                    </button>
+
+
+                    <button
+                        type="button"
+                        id="btnCancelar"
+                        style="display:none;">
+
+                        Cancelar Manutenção
+
+                    </button>
+
+                </div>
+
+
+                <p
+                    id="mensagem"
+                    class="mensagem-formulario">
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script src="../js/core/config.js"></script>
+    <script src="../js/core/storage.js"></script>
+    <script src="../js/core/permissions.js"></script>
+    <script src="../js/core/auth.js"></script>
+
+    <script src="../data/viaturas.js"></script>
+    <script src="../data/tipos-manutencao.js"></script>
+    <script src="../data/manutencoes.js"></script>
+
+    <script src="../js/services/viaturaService.js"></script>
+    <script src="../js/services/manutencaoService.js"></script>
+
+    <script src="../js/manutencao.js"></script>
+
+</body>
+
+</html>

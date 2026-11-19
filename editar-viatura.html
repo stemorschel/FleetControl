@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Editar Viatura | Gestão de Manutenção de Frota</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/frota.css">
+</head>
+
+<script src="../js/sidebar.js"></script>
+
+<body>
+
+    <main class="pagina-frota">
+
+        <div class="cabecalho-pagina">
+
+            <div>
+
+                <h1>
+                    Editar Viatura
+                </h1>
+
+                <p id="usuarioLogado"></p>
+
+            </div>
+
+
+            <button id="btnVoltar">
+                Voltar
+            </button>
+
+        </div>
+
+
+        <section class="card-formulario">
+
+            <form id="formEditarViatura">
+
+                <div class="campo-filtro">
+
+                    <label for="identificacao">
+                        Identificação
+                    </label>
+
+                    <input
+                        type="text"
+                        id="identificacao"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="campo-filtro">
+
+                    <label for="placa">
+                        Placa
+                    </label>
+
+                    <input
+                        type="text"
+                        id="placa"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="campo-filtro">
+
+                    <label for="marca">
+                        Marca
+                    </label>
+
+                    <input
+                        type="text"
+                        id="marca"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="campo-filtro">
+
+                    <label for="modelo">
+                        Modelo
+                    </label>
+
+                    <input
+                        type="text"
+                        id="modelo"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="campo-filtro">
+
+                    <label for="ano">
+                        Ano
+                    </label>
+
+                    <input
+                        type="number"
+                        id="ano"
+                        min="1900"
+                        max="2100"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="campo-filtro">
+
+                    <label for="quilometragem">
+                        Quilometragem
+                    </label>
+
+                    <input
+                        type="number"
+                        id="quilometragem"
+                        min="0"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="campo-filtro">
+
+                    <label for="setor">
+                        Setor
+                    </label>
+
+                    <input
+                        type="text"
+                        id="setor"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="campo-filtro">
+
+                    <label for="status">
+                        Status
+                    </label>
+
+                    <select
+                        id="status"
+                        required
+                    >
+
+                        <option value="disponivel">
+                            Disponível
+                        </option>
+
+                        <option value="em_manutencao">
+                            Em manutenção
+                        </option>
+
+                        <option value="indisponivel">
+                            Indisponível
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="campo-filtro">
+
+                    <label for="ativa">
+                        Situação do cadastro
+                    </label>
+
+                    <select
+                        id="ativa"
+                        required
+                    >
+
+                        <option value="true">
+                            Ativa
+                        </option>
+
+                        <option value="false">
+                            Inativa
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div
+                    id="mensagem"
+                    role="alert"
+                ></div>
+
+
+                <div class="acoes-formulario">
+
+                    <button
+                        type="submit"
+                        class="btn-principal"
+                    >
+                        Salvar Alterações
+                    </button>
+
+
+                    <button
+                        type="button"
+                        id="btnCancelar"
+                    >
+                        Cancelar
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+
+    <script src="../js/core/config.js"></script>
+    <script src="../js/core/storage.js"></script>
+    <script src="../js/core/permissions.js"></script>
+    <script src="../js/core/auth.js"></script>
+
+    <script src="../data/viaturas.js"></script>
+    <script src="../js/services/viaturaService.js"></script>
+
+
+    <script>
+
+        if (
+            !Auth.exigirPermissao(
+                "editarViatura"
+            )
+        ) {
+
+            throw new Error(
+                "Acesso não autorizado."
+            );
+
+        }
+
+
+        const sessao =
+            Auth.obterSessao();
+
+
+        document.getElementById(
+            "usuarioLogado"
+        ).textContent =
+            `${sessao.nome} — Perfil: ${sessao.perfil}`;
+
+
+        const parametros =
+            new URLSearchParams(
+                window.location.search
+            );
+
+
+        const viaturaId =
+            parametros.get("id");
+
+
+        const mensagem =
+            document.getElementById(
+                "mensagem"
+            );
+
+
+        const formulario =
+            document.getElementById(
+                "formEditarViatura"
+            );
+
+
+        const botao =
+            formulario.querySelector(
+                "button[type='submit']"
+            );
+
+
+        let viatura;
+
+
+        async function carregarViatura() {
+
+            try {
+
+                /*
+                 * Primeiro tenta atualizar os dados
+                 * vindos do banco de dados.
+                 */
+
+                const sincronizacao =
+                    await ViaturaService.sincronizar();
+
+
+                /*
+                 * Mesmo se a API estiver indisponível,
+                 * tenta utilizar os dados locais já existentes.
+                 */
+
+                viatura =
+                    ViaturaService.buscarPorId(
+                        viaturaId
+                    );
+
+
+                if (!viatura) {
+
+                    alert(
+                        sincronizacao.mensagem ||
+                        "Viatura não encontrada."
+                    );
+
+                    window.location.href =
+                        "frota.html";
+
+                    return;
+
+                }
+
+
+                preencherFormulario();
+
+
+            } catch (erro) {
+
+                console.error(
+                    "Erro ao carregar viatura:",
+                    erro
+                );
+
+
+                viatura =
+                    ViaturaService.buscarPorId(
+                        viaturaId
+                    );
+
+
+                if (!viatura) {
+
+                    alert(
+                        "Não foi possível carregar a viatura."
+                    );
+
+                    window.location.href =
+                        "frota.html";
+
+                    return;
+
+                }
+
+
+                preencherFormulario();
+
+            }
+
+        }
+
+
+        function preencherFormulario() {
+
+            document.getElementById(
+                "identificacao"
+            ).value =
+                viatura.identificacao;
+
+
+            document.getElementById(
+                "placa"
+            ).value =
+                viatura.placa;
+
+
+            document.getElementById(
+                "marca"
+            ).value =
+                viatura.marca;
+
+
+            document.getElementById(
+                "modelo"
+            ).value =
+                viatura.modelo;
+
+
+            document.getElementById(
+                "ano"
+            ).value =
+                viatura.ano;
+
+
+            document.getElementById(
+                "quilometragem"
+            ).value =
+                viatura.quilometragem;
+
+
+            document.getElementById(
+                "setor"
+            ).value =
+                viatura.setor;
+
+
+            document.getElementById(
+                "status"
+            ).value =
+                viatura.status;
+
+
+            document.getElementById(
+                "ativa"
+            ).value =
+                String(
+                    viatura.ativa
+                );
+
+        }
+
+
+        formulario.addEventListener(
+            "submit",
+            async function(event) {
+
+                event.preventDefault();
+
+
+                const dadosAtualizados = {
+
+                    identificacao:
+                        document
+                            .getElementById(
+                                "identificacao"
+                            )
+                            .value
+                            .trim(),
+
+                    placa:
+                        document
+                            .getElementById(
+                                "placa"
+                            )
+                            .value
+                            .trim(),
+
+                    marca:
+                        document
+                            .getElementById(
+                                "marca"
+                            )
+                            .value
+                            .trim(),
+
+                    modelo:
+                        document
+                            .getElementById(
+                                "modelo"
+                            )
+                            .value
+                            .trim(),
+
+                    ano:
+                        Number(
+                            document
+                                .getElementById(
+                                    "ano"
+                                )
+                                .value
+                        ),
+
+                    quilometragem:
+                        Number(
+                            document
+                                .getElementById(
+                                    "quilometragem"
+                                )
+                                .value
+                        ),
+
+                    setor:
+                        document
+                            .getElementById(
+                                "setor"
+                            )
+                            .value
+                            .trim(),
+
+                    status:
+                        document
+                            .getElementById(
+                                "status"
+                            )
+                            .value,
+
+                    ativa:
+                        document
+                            .getElementById(
+                                "ativa"
+                            )
+                            .value ===
+                        "true"
+
+                };
+
+
+                /*
+                 * Validação dos campos obrigatórios.
+                 */
+
+                if (
+                    !dadosAtualizados.identificacao ||
+                    !dadosAtualizados.placa ||
+                    !dadosAtualizados.marca ||
+                    !dadosAtualizados.modelo ||
+                    !dadosAtualizados.ano ||
+                    !Number.isFinite(
+                        dadosAtualizados.quilometragem
+                    ) ||
+                    dadosAtualizados.quilometragem < 0 ||
+                    !dadosAtualizados.setor
+                ) {
+
+                    mensagem.textContent =
+                        "Preencha corretamente todos os campos obrigatórios.";
+
+                    mensagem.className =
+                        "login-mensagem erro";
+
+                    return;
+
+                }
+
+
+                /*
+                 * A quilometragem nunca pode diminuir.
+                 */
+
+                if (
+                    dadosAtualizados.quilometragem <
+                    Number(
+                        viatura.quilometragem
+                    )
+                ) {
+
+                    mensagem.textContent =
+                        "A quilometragem não pode ser menor que a atual.";
+
+                    mensagem.className =
+                        "login-mensagem erro";
+
+                    return;
+
+                }
+
+
+                botao.disabled = true;
+
+                botao.textContent =
+                    "Salvando...";
+
+
+                try {
+
+                    const resultado =
+                        await ViaturaService.atualizarNaAPI(
+                            viaturaId,
+                            dadosAtualizados
+                        );
+
+
+                    if (
+                        !resultado ||
+                        !resultado.sucesso
+                    ) {
+
+                        mensagem.textContent =
+                            resultado?.mensagem ||
+                            "Não foi possível atualizar a viatura.";
+
+                        mensagem.className =
+                            "login-mensagem erro";
+
+                        return;
+
+                    }
+
+
+                    /*
+                     * Atualiza os dados locais com o
+                     * resultado salvo na API.
+                     */
+
+                    const viaturaAtualizada = {
+
+                        ...viatura,
+
+                        ...dadosAtualizados,
+
+                        id:
+                            viatura.id,
+
+                        bancoId:
+                            viatura.bancoId
+
+                    };
+
+
+                    ViaturaService.salvarTodas(
+                        ViaturaService
+                            .listar()
+                            .map(
+                                item =>
+                                    item.id === viaturaId
+                                        ? viaturaAtualizada
+                                        : item
+                            )
+                    );
+
+
+                    mensagem.textContent =
+                        "Viatura atualizada com sucesso.";
+
+                    mensagem.className =
+                        "login-mensagem sucesso";
+
+
+                    setTimeout(
+                        () => {
+
+                            window.location.href =
+                                `viatura.html?id=${encodeURIComponent(
+                                    viaturaId
+                                )}`;
+
+                        },
+                        600
+                    );
+
+
+                } catch (erro) {
+
+                    console.error(
+                        "Erro ao atualizar viatura:",
+                        erro
+                    );
+
+
+                    mensagem.textContent =
+                        "Não foi possível conectar ao servidor.";
+
+                    mensagem.className =
+                        "login-mensagem erro";
+
+                } finally {
+
+                    botao.disabled = false;
+
+                    botao.textContent =
+                        "Salvar Alterações";
+
+                }
+
+            }
+        );
+
+
+        function voltarParaViatura() {
+
+            window.location.href =
+                `viatura.html?id=${encodeURIComponent(
+                    viaturaId
+                )}`;
+
+        }
+
+
+        document
+            .getElementById(
+                "btnVoltar"
+            )
+            .addEventListener(
+                "click",
+                voltarParaViatura
+            );
+
+
+        document
+            .getElementById(
+                "btnCancelar"
+            )
+            .addEventListener(
+                "click",
+                voltarParaViatura
+            );
+
+
+        carregarViatura();
+
+    </script>
+
+</body>
+</html>

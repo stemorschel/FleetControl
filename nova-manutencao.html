@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nova Manutenção | Gestão de Manutenção de Frota</title>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/manutencao.css">
+</head>
+
+<script src="../js/sidebar.js"></script>
+
+<body>
+
+    <main class="pagina-manutencoes">
+
+        <header class="cabecalho-pagina">
+
+            <div>
+                <h1>Nova Manutenção</h1>
+                <p id="usuarioLogado"></p>
+            </div>
+
+            <button id="btnVoltar">
+                Voltar
+            </button>
+
+        </header>
+
+
+        <section class="card-formulario">
+
+            <form id="formManutencao">
+
+                <div class="campo-filtro">
+                    <label for="viaturaId">
+                        Viatura *
+                    </label>
+
+                    <select id="viaturaId" required>
+                        <option value="">
+                            Selecione a viatura
+                        </option>
+                    </select>
+                </div>
+
+
+                <div class="campo-filtro">
+                    <label for="tipoId">
+                        Tipo de manutenção *
+                    </label>
+
+                    <select id="tipoId" required>
+                        <option value="">
+                            Selecione o tipo
+                        </option>
+                    </select>
+                </div>
+
+
+                <div class="campo-filtro">
+                    <label for="natureza">
+                        Natureza *
+                    </label>
+
+                    <select id="natureza" required>
+
+                        <option value="">
+                            Selecione
+                        </option>
+
+                        <option value="preventiva">
+                            Preventiva
+                        </option>
+
+                        <option value="corretiva">
+                            Corretiva
+                        </option>
+
+                    </select>
+                </div>
+
+
+                <div class="campo-filtro">
+                    <label for="dataAgendada">
+                        Data agendada
+                    </label>
+
+                    <input
+                        type="date"
+                        id="dataAgendada"
+                    >
+                </div>
+
+
+                <div class="campo-filtro">
+                    <label for="quilometragem">
+                        Quilometragem
+                    </label>
+
+                    <input
+                        type="number"
+                        id="quilometragem"
+                        min="0"
+                        placeholder="Ex.: 60000"
+                    >
+                </div>
+
+
+                <div class="campo-filtro">
+                    <label for="responsavelId">
+                        Responsável
+                    </label>
+
+                    <select id="responsavelId">
+                        <option value="">
+                            Selecione o responsável
+                        </option>
+                    </select>
+                </div>
+
+
+                <div class="campo-filtro campo-largo">
+                    <label for="servico">
+                        Serviço
+                    </label>
+
+                    <input
+                        type="text"
+                        id="servico"
+                        placeholder="Ex.: Troca de óleo e filtro"
+                    >
+                </div>
+
+
+                <div class="campo-filtro campo-largo">
+                    <label for="problema">
+                        Problema identificado
+                    </label>
+
+                    <textarea
+                        id="problema"
+                        rows="4"
+                        placeholder="Descreva o problema identificado..."
+                    ></textarea>
+                </div>
+
+
+                <div class="campo-filtro campo-largo">
+                    <label for="pecas">
+                        Peças utilizadas
+                    </label>
+
+                    <textarea
+                        id="pecas"
+                        rows="3"
+                        placeholder="Informe as peças utilizadas..."
+                    ></textarea>
+                </div>
+
+
+                <div class="campo-filtro campo-largo">
+                    <label for="observacoes">
+                        Observações
+                    </label>
+
+                    <textarea
+                        id="observacoes"
+                        rows="4"
+                        placeholder="Observações adicionais..."
+                    ></textarea>
+                </div>
+
+
+                <div
+                    id="mensagem"
+                    class="mensagem-formulario"
+                ></div>
+
+
+                <div class="acoes-formulario">
+
+                    <button
+                        type="submit"
+                        class="btn-principal"
+                    >
+                        Registrar Manutenção
+                    </button>
+
+                    <button
+                        type="button"
+                        id="btnCancelar"
+                    >
+                        Cancelar
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </main>
+
+
+    <script src="../js/core/config.js"></script>
+    <script src="../js/core/storage.js"></script>
+    <script src="../js/core/permissions.js"></script>
+    <script src="../js/core/auth.js"></script>
+
+    <script src="../data/viaturas.js"></script>
+    <script src="../data/tipos-manutencao.js"></script>
+    <script src="../data/manutencoes.js"></script>
+
+    <script src="../js/services/viaturaService.js"></script>
+    <script src="../js/services/manutencaoService.js"></script>
+
+    <script src="../js/nova-manutencao.js"></script>
+
+</body>
+</html>

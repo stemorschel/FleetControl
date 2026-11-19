@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Detalhes da Viatura | Gestão de Manutenção de Frota
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/viatura.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/manutencao.css"
+    >
+
+</head>
+
+<script src="../js/sidebar.js"></script>
+
+<body>
+
+    <main class="pagina-viatura">
+
+        <!-- CABEÇALHO -->
+
+        <header class="cabecalho-pagina">
+
+            <div>
+
+                <h1>
+                    Detalhes da Viatura
+                </h1>
+
+                <p id="usuarioLogado"></p>
+
+            </div>
+
+            <button
+                type="button"
+                id="btnVoltar"
+            >
+                Voltar para a Frota
+            </button>
+
+        </header>
+
+
+        <!-- ERRO -->
+
+        <section
+            id="estadoErro"
+            class="estado-erro"
+            style="display:none;"
+        >
+
+            <h2>
+                Viatura não encontrada
+            </h2>
+
+            <p>
+                A viatura solicitada não existe
+                ou não está mais disponível.
+            </p>
+
+            <button
+                type="button"
+                id="btnVoltarErro"
+            >
+                Voltar para a Frota
+            </button>
+
+        </section>
+
+
+        <!-- CONTEÚDO -->
+
+        <section
+            id="conteudoViatura"
+            style="display:none;"
+        >
+
+            <!-- DADOS DA VIATURA -->
+
+            <div class="card-viatura">
+
+                <div class="identificacao-viatura">
+
+                    <div>
+
+                        <span class="label">
+                            Identificação
+                        </span>
+
+                        <h2 id="identificacao">
+                            —
+                        </h2>
+
+                    </div>
+
+
+                    <span
+                        id="status"
+                        class="status"
+                    >
+                        —
+                    </span>
+
+                </div>
+
+
+                <div class="dados-viatura">
+
+                    <div class="dado">
+
+                        <span class="label">
+                            Placa
+                        </span>
+
+                        <strong id="placa">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="dado">
+
+                        <span class="label">
+                            Marca
+                        </span>
+
+                        <strong id="marca">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="dado">
+
+                        <span class="label">
+                            Modelo
+                        </span>
+
+                        <strong id="modelo">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="dado">
+
+                        <span class="label">
+                            Ano
+                        </span>
+
+                        <strong id="ano">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="dado">
+
+                        <span class="label">
+                            Quilometragem
+                        </span>
+
+                        <strong id="quilometragem">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="dado">
+
+                        <span class="label">
+                            Setor
+                        </span>
+
+                        <strong id="setor">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="dado">
+
+                        <span class="label">
+                            Situação do cadastro
+                        </span>
+
+                        <strong id="situacaoCadastro">
+                            —
+                        </strong>
+
+                    </div>
+
+
+                    <div class="dado">
+
+                        <span class="label">
+                            Data de cadastro
+                        </span>
+
+                        <strong id="dataCadastro">
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- AÇÕES -->
+
+                <div class="acoes-viatura">
+
+                    <button
+                        type="button"
+                        id="btnEditar"
+                        class="btn-principal"
+                    >
+                        Editar Viatura
+                    </button>
+
+
+                    <button
+                        type="button"
+                        id="btnQuilometragem"
+                    >
+                        Atualizar Quilometragem
+                    </button>
+
+
+                    <button
+                        type="button"
+                        id="btnSituacao"
+                    >
+                        Alterar Situação
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <!-- HISTÓRICO -->
+
+            <section class="historico-manutencao">
+
+                <div class="titulo-historico">
+
+                    <h2>
+                        Histórico de Manutenções
+                    </h2>
+
+                    <p>
+                        Histórico de manutenções registradas para esta viatura.
+                    </p>
+
+                </div>
+
+
+                <div
+                    id="estadoHistoricoVazio"
+                    class="estado-vazio"
+                    style="display:none;"
+                >
+
+                    <h3>
+                        Nenhuma manutenção registrada
+                    </h3>
+
+                    <p>
+                        Esta viatura ainda não possui manutenções registradas.
+                    </p>
+
+                </div>
+
+
+                <div
+                    id="tabelaHistoricoContainer"
+                    class="tabela-container"
+                    style="display:none;"
+                >
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Tipo
+                                </th>
+
+                                <th>
+                                    Natureza
+                                </th>
+
+                                <th>
+                                    Data agendada
+                                </th>
+
+                                <th>
+                                    Quilometragem
+                                </th>
+
+                                <th>
+                                    Status
+                                </th>
+
+                                <th>
+                                    Ação
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="tabelaHistorico">
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+
+            <!-- PREVENTIVAS -->
+
+            <section class="card-preventivas-viatura">
+
+                <div class="cabecalho-secao">
+
+                    <div>
+
+                        <h2>
+                            Planejamento Preventivo
+                        </h2>
+
+                        <p>
+                            Acompanhamento das próximas manutenções preventivas desta viatura.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="listaPreventivas"
+                    class="lista-preventivas"
+                >
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+
+    <!-- NÚCLEO -->
+
+    <script src="../js/core/config.js"></script>
+
+    <script src="../js/core/storage.js"></script>
+
+    <script src="../js/core/permissions.js"></script>
+
+    <script src="../js/core/auth.js"></script>
+
+
+    <!-- DADOS -->
+
+
+    <script src="../data/viaturas.js"></script>
+
+    <script src="../data/tipos-manutencao.js"></script>
+
+    <script src="../data/manutencoes.js"></script>
+
+
+    <!-- SERVIÇOS -->
+
+    <script src="../js/services/viaturaService.js"></script>
+
+    <script src="../js/services/manutencaoService.js"></script>
+
+    <script src="../js/services/preventivaService.js"></script>
+
+
+    <!-- PÁGINA -->
+
+    <script src="../js/viatura-detalhes.js"></script>
+
+</body>
+
+</html>

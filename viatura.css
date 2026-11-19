@@ -1,0 +1,173 @@
+/* =========================================================
+   DETALHES DA VIATURA
+   Estrutura compartilhada vem de style.css.
+   ========================================================= */
+
+.card-viatura,
+.card-preventivas-viatura {
+    padding: 28px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow-small);
+}
+
+.card-preventivas-viatura {
+    margin-top: 24px;
+}
+
+.identificacao-viatura {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 24px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.identificacao-viatura h2 {
+    margin: 2px 0 0;
+    font-size: 24px;
+    letter-spacing: -0.01em;
+}
+
+.status-disponivel {
+    background: var(--success-background);
+    color: var(--success);
+}
+
+.status-em_manutencao {
+    background: var(--warning-background);
+    color: var(--warning);
+}
+
+.status-indisponivel {
+    background: var(--danger-background);
+    color: var(--danger);
+}
+
+.dados-viatura {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.dado {
+    padding: 14px 16px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-small);
+    background: var(--surface-soft);
+}
+
+.dado .label {
+    margin-bottom: 4px;
+}
+
+.dado strong {
+    display: block;
+    color: var(--text);
+    font-size: 16px;
+    overflow-wrap: anywhere;
+}
+
+.acoes-viatura {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 26px;
+    padding-top: 22px;
+    border-top: 1px solid var(--border-light);
+}
+
+.estado-erro {
+    padding: 40px;
+}
+
+/* HISTÓRICO */
+
+.historico-manutencao {
+    margin-top: 24px;
+}
+
+.titulo-historico {
+    margin-bottom: 14px;
+}
+
+.titulo-historico h2 {
+    margin: 0 0 4px;
+}
+
+.titulo-historico p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+/* PREVENTIVAS DA VIATURA */
+
+.cabecalho-secao {
+    margin-bottom: 18px;
+}
+
+.lista-preventivas {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.item-preventiva {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    padding: 14px 16px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-small);
+    background: var(--surface-soft);
+}
+
+.item-preventiva > div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.item-preventiva strong {
+    color: var(--text);
+    font-size: 16px;
+}
+
+.item-preventiva span:not(.status-preventiva) {
+    color: var(--text-muted);
+    font-size: 14px;
+}
+
+@media (max-width: 900px) {
+
+    .dados-viatura {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+
+    .card-viatura,
+    .card-preventivas-viatura {
+        padding: 20px 16px;
+    }
+
+    .identificacao-viatura,
+    .item-preventiva {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .dados-viatura {
+        grid-template-columns: 1fr;
+    }
+
+    .acoes-viatura {
+        flex-direction: column;
+    }
+}

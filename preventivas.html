@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Manutenções Preventivas | Gestão de Manutenção de Frota
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/manutencao.css"
+    >
+
+</head>
+
+<script src="../js/sidebar.js"></script>
+
+<body>
+
+    <main class="pagina">
+
+        <header class="cabecalho-pagina">
+
+            <div>
+
+                <h1>
+                    Manutenções Preventivas
+                </h1>
+
+                <p>
+                    Acompanhamento das situações de manutenção preventiva da frota.
+                </p>
+
+            </div>
+
+            <div class="usuario-pagina">
+
+                <strong id="usuarioLogado">
+                    —
+                </strong>
+
+                <button
+                    id="btnVoltar"
+                    type="button"
+                >
+                    Voltar
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <section class="cards-resumo">
+
+            <article class="card">
+
+                <span>
+                    Normais
+                </span>
+
+                <strong id="totalNormal">
+                    0
+                </strong>
+
+            </article>
+
+
+            <article class="card">
+
+                <span>
+                    Próximas
+                </span>
+
+                <strong id="totalProxima">
+                    0
+                </strong>
+
+            </article>
+
+            <article class="card">
+
+                <span>
+                    Atrasadas
+                </span>
+
+                <strong id="totalAtrasada">
+                    0
+                </strong>
+
+            </article>
+
+
+            <article class="card">
+
+                <span>
+                    Sem planejamento
+                </span>
+
+                <strong id="totalSemPlanejamento">
+                    0
+                </strong>
+
+            </article>
+
+
+            <article class="card">
+
+                <span>
+                    Total de viaturas
+                </span>
+
+                <strong id="totalViaturas">
+                    0
+                </strong>
+
+            </article>
+
+        </section>
+
+
+        <section class="filtros">
+
+            <div>
+
+                <label for="busca">
+                    Pesquisar viatura
+                </label>
+
+                <input
+                    type="search"
+                    id="busca"
+                    placeholder="Identificação, placa, marca ou modelo"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label for="filtroSituacao">
+                    Situação
+                </label>
+
+                <select id="filtroSituacao">
+
+                    <option value="">
+                        Todas
+                    </option>
+
+                    <option value="normal">
+                        Normal
+                    </option>
+
+                    <option value="proxima">
+                        Próxima
+                    </option>
+
+                    <option value="atrasada">
+                        Atrasada
+                    </option>
+
+                    <option value="sem_planejamento">
+                        Sem planejamento
+                    </option>
+
+                </select>
+
+            </div>
+
+        </section>
+
+
+        <section class="secao-tabela">
+
+            <div class="cabecalho-secao">
+
+                <div>
+
+                    <h2>
+                        Situação da frota
+                    </h2>
+
+                    <p>
+                        Consulte a situação das manutenções preventivas de cada viatura.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="tabela-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Viatura
+                            </th>
+
+                            <th>
+                                Placa
+                            </th>
+
+                            <th>
+                                Quilometragem
+                            </th>
+
+                            <th>
+                                Situação
+                            </th>
+
+                            <th>
+                                Ações
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="tabelaPreventivas">
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+            <div
+                id="estadoVazio"
+                class="estado-vazio"
+                style="display: none;"
+            >
+                Nenhuma viatura encontrada para os filtros selecionados.
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- Núcleo do sistema -->
+
+    <script src="../js/core/config.js"></script>
+
+    <script src="../js/core/storage.js"></script>
+
+    <script src="../js/core/permissions.js"></script>
+
+    <script src="../js/core/auth.js"></script>
+
+    <script src="../js/core/configService.js"></script>
+
+
+    <!-- Dados iniciais -->
+
+
+    <script src="../data/viaturas.js"></script>
+
+    <script src="../data/tipos-manutencao.js"></script>
+
+    <script src="../data/manutencoes.js"></script>
+
+
+    <!-- Serviços -->
+
+    <script src="../js/services/viaturaService.js"></script>
+
+    <script src="../js/services/manutencaoService.js"></script>
+
+    <script src="../js/services/preventivaService.js"></script>
+
+
+    <!-- Controle da página -->
+
+    <script src="../js/preventivas.js"></script>
+
+</body>
+
+</html>

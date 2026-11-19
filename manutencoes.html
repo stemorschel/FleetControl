@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Manutenções | Gestão de Manutenção de Frota
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/manutencao.css"
+    >
+
+</head>
+
+<script src="../js/sidebar.js"></script>
+
+<body>
+
+    <main class="pagina-manutencoes">
+
+        <header class="cabecalho-pagina">
+
+            <div>
+
+                <h1>
+                    Manutenções
+                </h1>
+
+                <p id="usuarioLogado"></p>
+
+            </div>
+
+
+            <div class="acoes-cabecalho">
+
+                <button
+                    type="button"
+                    id="btnNovaManutencao"
+                    class="btn-principal"
+                >
+                    + Nova Manutenção
+                </button>
+
+
+                <button
+                    type="button"
+                    id="btnVoltar"
+                >
+                    Voltar ao Dashboard
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <section class="filtros-manutencao">
+
+            <div class="campo-filtro">
+
+                <label for="busca">
+                    Buscar
+                </label>
+
+                <input
+                    type="text"
+                    id="busca"
+                    placeholder="Viatura, placa ou serviço..."
+                >
+
+            </div>
+
+
+            <div class="campo-filtro">
+
+                <label for="filtroViatura">
+                    Viatura
+                </label>
+
+                <select id="filtroViatura">
+
+                    <option value="">
+                        Todas
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="campo-filtro">
+
+                <label for="filtroStatus">
+                    Status
+                </label>
+
+                <select id="filtroStatus">
+
+                    <option value="">
+                        Todos
+                    </option>
+
+                    <option value="agendada">
+                        Agendada
+                    </option>
+
+                    <option value="em_andamento">
+                        Em andamento
+                    </option>
+
+                    <option value="concluida">
+                        Concluída
+                    </option>
+
+                    <option value="cancelada">
+                        Cancelada
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="campo-filtro">
+
+                <label for="filtroNatureza">
+                    Natureza
+                </label>
+
+                <select id="filtroNatureza">
+
+                    <option value="">
+                        Todas
+                    </option>
+
+                    <option value="preventiva">
+                        Preventiva
+                    </option>
+
+                    <option value="corretiva">
+                        Corretiva
+                    </option>
+
+                </select>
+
+            </div>
+
+        </section>
+
+
+        <section class="tabela-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Viatura
+                        </th>
+
+                        <th>
+                            Placa
+                        </th>
+
+                        <th>
+                            Tipo
+                        </th>
+
+                        <th>
+                            Natureza
+                        </th>
+
+                        <th>
+                            Data agendada
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Quilometragem
+                        </th>
+
+                        <th>
+                            Ações
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody id="tabelaManutencoes">
+                </tbody>
+
+            </table>
+
+        </section>
+
+
+        <section
+            id="estadoVazio"
+            class="estado-vazio"
+            hidden
+        >
+
+            <h2>
+                Nenhuma manutenção encontrada
+            </h2>
+
+            <p>
+                Não existem manutenções que correspondam aos filtros informados.
+            </p>
+
+        </section>
+
+    </main>
+
+
+    <!-- NÚCLEO -->
+
+    <script src="../js/core/config.js"></script>
+
+    <script src="../js/core/storage.js"></script>
+
+    <script src="../js/core/permissions.js"></script>
+
+    <script src="../js/core/auth.js"></script>
+
+
+    <!-- DADOS -->
+
+
+    <script src="../data/viaturas.js"></script>
+
+    <script src="../data/tipos-manutencao.js"></script>
+
+    <script src="../data/manutencoes.js"></script>
+
+
+    <!-- SERVIÇOS -->
+
+    <script src="../js/services/viaturaService.js"></script>
+
+    <script src="../js/services/manutencaoService.js"></script>
+
+
+    <!-- PÁGINA -->
+
+    <script src="../js/manutencoes.js"></script>
+
+
+    <!-- BOTÕES DE NAVEGAÇÃO -->
+
+    <script>
+
+        document
+            .getElementById("btnNovaManutencao")
+            .addEventListener(
+                "click",
+                function () {
+
+                    window.location.href =
+                        "nova-manutencao.html";
+
+                }
+            );
+
+
+        document
+            .getElementById("btnVoltar")
+            .addEventListener(
+                "click",
+                function () {
+
+                    window.location.href =
+                        "dashboard.html";
+
+                }
+            );
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Configurações | Gestão de Manutenção de Frota
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/usuarios.css"
+    >
+
+</head>
+
+<script src="../js/sidebar.js"></script>
+
+<body>
+
+    <main class="pagina-usuarios">
+
+        <header class="cabecalho-pagina">
+
+            <div>
+
+                <h1>
+                    Configurações
+                </h1>
+
+                <p>
+                    Parâmetros gerais do sistema.
+                </p>
+
+            </div>
+
+
+            <div class="usuario-pagina">
+
+                <strong id="usuarioNome">
+                    —
+                </strong>
+
+                <span id="usuarioPerfil">
+                    —
+                </span>
+
+                <button
+                    id="btnVoltar"
+                    type="button"
+                >
+                    Voltar
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <section class="secao-usuarios">
+
+            <div class="cabecalho-secao">
+
+                <div>
+
+                    <h2>
+                        Configurações gerais
+                    </h2>
+
+                    <p>
+                        Os parâmetros abaixo influenciam o acompanhamento das manutenções preventivas.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <form id="configuracoesForm">
+
+                <div class="grid-formulario">
+
+                    <div>
+
+                        <label for="nomeSistema">
+                            Nome do sistema
+                        </label>
+
+                        <input
+                            type="text"
+                            id="nomeSistema"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <label for="limiteAlertaKm">
+                            Limite de alerta por quilometragem
+                        </label>
+
+                        <input
+                            type="number"
+                            id="limiteAlertaKm"
+                            min="0"
+                            step="1"
+                            required
+                        >
+
+                        <small>
+                            Quantos quilômetros antes do limite a manutenção deve ser considerada próxima.
+                        </small>
+
+                    </div>
+
+
+                    <div>
+
+                        <label for="limiteAlertaDias">
+                            Limite de alerta por dias
+                        </label>
+
+                        <input
+                            type="number"
+                            id="limiteAlertaDias"
+                            min="0"
+                            step="1"
+                            required
+                        >
+
+                        <small>
+                            Quantos dias antes do vencimento a manutenção deve ser considerada próxima.
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="acoes-formulario">
+
+                    <button
+                        type="submit"
+                        class="botao-principal"
+                    >
+                        Salvar configurações
+                    </button>
+
+                </div>
+
+
+                <p
+                    id="mensagemConfiguracoes"
+                    class="mensagem-formulario"
+                ></p>
+
+            </form>
+
+        </section>
+
+    </main>
+
+
+    <script src="../js/core/config.js"></script>
+    <script src="../js/core/storage.js"></script>
+    <script src="../js/core/permissions.js"></script>
+    <script src="../js/core/auth.js"></script>
+    <script src="../js/core/configService.js"></script>
+
+    <script src="../js/configuracoes.js"></script>
+
+</body>
+
+</html>

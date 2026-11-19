@@ -1,0 +1,251 @@
+/* =========================================================
+   MANUTENÇÕES / NOVA MANUTENÇÃO / DETALHES / PREVENTIVAS
+   Estrutura compartilhada (cabeçalho, filtros, tabela, botões,
+   estados) vem de style.css.
+   ========================================================= */
+
+/* STATUS DA MANUTENÇÃO */
+
+.status-agendada {
+    background: var(--info-background);
+    color: var(--info);
+}
+
+.status-em_andamento {
+    background: var(--warning-background);
+    color: var(--warning);
+}
+
+.status-concluida {
+    background: var(--success-background);
+    color: var(--success);
+}
+
+.status-cancelada {
+    background: var(--danger-background);
+    color: var(--danger);
+}
+
+.natureza-preventiva,
+.natureza-corretiva {
+    font-weight: 600;
+}
+
+/* FORMULÁRIO */
+
+.card-formulario {
+    padding: 28px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow-small);
+}
+
+#formManutencao {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+}
+
+#formManutencao .campo-filtro {
+    flex: none;
+}
+
+.campo-largo {
+    grid-column: 1 / -1;
+}
+
+.mensagem-formulario {
+    grid-column: 1 / -1;
+    min-height: 20px;
+    padding: 6px 0;
+}
+
+.acoes-formulario {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 8px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-light);
+}
+
+/* DETALHES DA MANUTENÇÃO */
+
+.identificacao-manutencao {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 24px;
+    padding-bottom: 22px;
+    border-bottom: 1px solid var(--border-light);
+}
+
+.identificacao-manutencao h2 {
+    margin: 2px 0 0;
+    font-size: 24px;
+    letter-spacing: -0.01em;
+}
+
+.dados-manutencao {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.dado {
+    padding: 14px 16px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-small);
+    background: var(--surface-soft);
+}
+
+.dado .label {
+    margin-bottom: 4px;
+}
+
+.dado strong {
+    display: block;
+    color: var(--text);
+    font-size: 16px;
+    overflow-wrap: anywhere;
+}
+
+.detalhes-texto {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 20px;
+}
+
+.detalhes-texto > div {
+    padding: 16px 18px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-small);
+}
+
+.detalhes-texto p {
+    margin: 6px 0 0;
+    color: var(--text);
+    line-height: 1.55;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+/* MANUTENÇÃO PREVENTIVA */
+
+.resumo-preventiva {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.card-preventiva {
+    padding: 18px;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    background: var(--surface);
+    box-shadow: var(--shadow-small);
+}
+
+.card-preventiva .label {
+    margin-bottom: 8px;
+}
+
+.card-preventiva strong {
+    display: block;
+    color: var(--text);
+    font-size: 28px;
+}
+
+.status-normal {
+    background: var(--success-background);
+    color: var(--success);
+}
+
+.status-proxima {
+    background: var(--info-background);
+    color: var(--info);
+}
+
+.status-atrasada {
+    background: var(--danger-background);
+    color: var(--danger);
+}
+
+.status-sem_planejamento {
+    background: #eef1f4;
+    color: var(--text-muted);
+}
+
+.resumo-normal {
+    border-left: 4px solid var(--success);
+}
+
+.resumo-proxima {
+    border-left: 4px solid var(--info);
+}
+
+.resumo-atrasada {
+    border-left: 4px solid var(--danger);
+}
+
+.resumo-sem-planejamento {
+    border-left: 4px solid var(--border);
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 1100px) {
+
+    .resumo-preventiva {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 1000px) {
+
+    .dados-manutencao {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 700px) {
+
+    #formManutencao,
+    .dados-manutencao,
+    .detalhes-texto {
+        grid-template-columns: 1fr;
+    }
+
+    .campo-largo {
+        grid-column: auto;
+    }
+
+    .acoes-formulario {
+        flex-direction: column;
+    }
+
+    .identificacao-manutencao {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .resumo-preventiva {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .card-formulario {
+        padding: 20px 16px;
+    }
+}
+
+@media (max-width: 450px) {
+
+    .resumo-preventiva {
+        grid-template-columns: 1fr;
+    }
+}

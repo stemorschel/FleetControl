@@ -1,0 +1,25 @@
+# Configurações locais do editor
+.vscode/
+.idea/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos temporários e logs
+*.tmp
+*.temp
+*.log
+
+# Variáveis de ambiente (mantém apenas o modelo de exemplo)
+.env
+.env.*
+!.env.example
+
+# Dependências
+node_modules/
+
+# Arquivos de build e cobertura
+dist/
+build/
+coverage/

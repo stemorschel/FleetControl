@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Frota | Gestão de Manutenção de Frota
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/frota.css"
+    >
+
+</head>
+
+<script src="../js/sidebar.js"></script>
+
+<body>
+
+    <main class="pagina-frota">
+
+        <header class="cabecalho-pagina">
+
+            <div>
+
+                <h1>
+                    Frota
+                </h1>
+
+                <p id="usuarioLogado"></p>
+
+            </div>
+
+            <button
+                type="button"
+                id="btnNovaViatura"
+            >
+                + Nova Viatura
+            </button>
+
+        </header>
+
+
+        <section class="filtros-frota">
+
+            <div class="campo-filtro">
+
+                <label for="busca">
+                    Buscar
+                </label>
+
+                <input
+                    type="search"
+                    id="busca"
+                    placeholder="Identificação, placa, marca ou modelo"
+                >
+
+            </div>
+
+
+            <div class="campo-filtro">
+
+                <label for="filtroStatus">
+                    Status
+                </label>
+
+                <select id="filtroStatus">
+
+                    <option value="">
+                        Todos
+                    </option>
+
+                    <option value="disponivel">
+                        Disponível
+                    </option>
+
+                    <option value="em_manutencao">
+                        Em manutenção
+                    </option>
+
+                    <option value="indisponivel">
+                        Indisponível
+                    </option>
+
+                </select>
+
+            </div>
+
+        </section>
+
+
+        <section class="tabela-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Identificação
+                        </th>
+
+                        <th>
+                            Placa
+                        </th>
+
+                        <th>
+                            Veículo
+                        </th>
+
+                        <th>
+                            Ano
+                        </th>
+
+                        <th>
+                            Quilometragem
+                        </th>
+
+                        <th>
+                            Setor
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                        <th>
+                            Ações
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="tabelaViaturas">
+                </tbody>
+
+            </table>
+
+            <div
+                id="estadoVazio"
+                class="estado-vazio"
+                hidden
+            >
+                Nenhuma viatura encontrada.
+            </div>
+
+        </section>
+
+
+        <button
+            type="button"
+            id="btnVoltar"
+        >
+            Voltar
+        </button>
+
+    </main>
+
+
+    <script src="../js/core/config.js"></script>
+
+    <script src="../js/core/storage.js"></script>
+
+    <script src="../js/core/permissions.js"></script>
+
+    <script src="../js/core/auth.js"></script>
+
+    <script src="../data/viaturas.js"></script>
+
+    <script src="../js/services/viaturaService.js"></script>
+
+
+   <script>
+
+    if (
+        !Auth.exigirPermissao(
+            "visualizarFrota"
+        )
+    ) {
+
+        throw new Error(
+            "Acesso não autorizado."
+        );
+
+    }
+
+
+    const sessao =
+        Auth.obterSessao();
+
+
+    document.getElementById(
+        "usuarioLogado"
+    ).textContent =
+        `${sessao.nome} | Perfil: ${sessao.perfil}`;
+
+
+    const tabela =
+        document.getElementById(
+            "tabelaViaturas"
+        );
+
+
+    const estadoVazio =
+        document.getElementById(
+            "estadoVazio"
+        );
+
+
+    const busca =
+        document.getElementById(
+            "busca"
+        );
+
+
+    const filtroStatus =
+        document.getElementById(
+            "filtroStatus"
+        );
+
+
+    function formatarStatus(status) {
+
+        const nomes = {
+
+            disponivel:
+                "Disponível",
+
+            em_manutencao:
+                "Em manutenção",
+
+            indisponivel:
+                "Indisponível"
+
+        };
+
+
+        return nomes[status] ||
+            status;
+
+    }
+
+
+    function formatarQuilometragem(km) {
+
+        return Number(km)
+            .toLocaleString("pt-BR") +
+            " km";
+
+    }
+
+
+    function renderizarViaturas() {
+
+        const termo =
+            busca.value
+                .trim()
+                .toLowerCase();
+
+
+        const statusSelecionado =
+            filtroStatus.value;
+
+
+        const viaturas =
+            ViaturaService.listar();
+
+
+        const filtradas =
+            viaturas.filter(
+                viatura => {
+
+                    /*
+                     * Viaturas inativas não aparecem
+                     * na lista principal da frota.
+                     */
+
+                    const correspondeBusca =
+                        viatura.identificacao
+                            .toLowerCase()
+                            .includes(termo)
+
+                        ||
+
+                        viatura.placa
+                            .toLowerCase()
+                            .includes(termo)
+
+                        ||
+
+                        viatura.marca
+                            .toLowerCase()
+                            .includes(termo)
+
+                        ||
+
+                        viatura.modelo
+                            .toLowerCase()
+                            .includes(termo);
+
+
+                    const correspondeStatus =
+    !statusSelecionado
+    ||
+    (
+        statusSelecionado === "indisponivel"
+            ? viatura.ativa === false
+            : viatura.ativa !== false &&
+              viatura.status === statusSelecionado
+    );
+                    return (
+                        correspondeBusca &&
+                        correspondeStatus
+                    );
+
+                }
+            );
+
+
+        tabela.innerHTML = "";
+
+
+        estadoVazio.hidden =
+            filtradas.length > 0;
+
+
+        filtradas.forEach(
+            viatura => {
+
+                const linha =
+                    document.createElement(
+                        "tr"
+                    );
+
+
+                linha.innerHTML = `
+
+                    <td>
+                        ${viatura.identificacao}
+                    </td>
+
+                    <td>
+                        ${viatura.placa}
+                    </td>
+
+                    <td>
+                        ${viatura.marca}
+                        ${viatura.modelo}
+                    </td>
+
+                    <td>
+                        ${viatura.ano}
+                    </td>
+
+                    <td>
+                        ${formatarQuilometragem(
+                            viatura.quilometragem
+                        )}
+                    </td>
+
+                    <td>
+                        ${viatura.setor}
+                    </td>
+
+                    <td>
+                       ${formatarStatus(
+    viatura.ativa === false
+        ? "indisponivel"
+        : viatura.status
+)}
+                    </td>
+
+                    <td>
+
+                        <button
+                            type="button"
+                            class="btn-detalhes"
+                            data-id="${viatura.id}"
+                        >
+                            Ver detalhes
+                        </button>
+
+                    </td>
+
+                `;
+
+
+                tabela.appendChild(
+                    linha
+                );
+
+            }
+        );
+
+
+        document
+            .querySelectorAll(
+                ".btn-detalhes"
+            )
+            .forEach(
+                botao => {
+
+                    botao.addEventListener(
+                        "click",
+                        () => {
+
+                            const id =
+                                botao.dataset.id;
+
+
+                            window.location.href =
+                                `viatura.html?id=${encodeURIComponent(id)}`;
+
+                        }
+                    );
+
+                }
+            );
+
+    }
+
+
+    busca.addEventListener(
+        "input",
+        renderizarViaturas
+    );
+
+
+    filtroStatus.addEventListener(
+        "change",
+        renderizarViaturas
+    );
+
+
+    document
+        .getElementById(
+            "btnNovaViatura"
+        )
+        .addEventListener(
+            "click",
+            () => {
+
+                window.location.href =
+                    "nova-viatura.html";
+
+            }
+        );
+
+
+    document
+        .getElementById(
+            "btnVoltar"
+        )
+        .addEventListener(
+            "click",
+            () => {
+
+                window.location.href =
+                    "dashboard.html";
+
+            }
+        );
+
+
+    /*
+     * PRIMEIRO CARREGA A FROTA DO BANCO.
+     * SÓ DEPOIS RENDERIZA A TABELA.
+     */
+
+    async function iniciarFrota() {
+
+        const resultado =
+            await ViaturaService.sincronizar();
+
+
+        if (
+            !resultado.sucesso
+        ) {
+
+            console.error(
+                resultado.mensagem
+            );
+
+
+            alert(
+                resultado.mensagem
+            );
+
+            return;
+
+        }
+
+
+        renderizarViaturas();
+
+    }
+
+
+    iniciarFrota();
+
+</script>
+
+</body>
+
+</html>
